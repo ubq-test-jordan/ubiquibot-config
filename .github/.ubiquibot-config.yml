@@ -39,10 +39,10 @@ plugins:
       command: "/start"
       example: "/start" # or "/stop"
       with:
-      isEnabled: true
-      timers:
-        reviewDelayTolerance: 86000
-        taskStaleTimeoutDuration: 2580000
-      miscellaneous:
-      maxConcurrentTasks: 3
-      startRequiresWallet: true # default is true
+        isEnabled: true
+        timers:
+          reviewDelayTolerance: 86000
+          taskStaleTimeoutDuration: 2580000
+        miscellaneous:
+          maxConcurrentTasks: 3
+        startRequiresWallet: true # default is true
