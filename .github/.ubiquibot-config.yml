@@ -64,3 +64,24 @@ plugins:
             labels:
               time: []
               priority: []
+
+# plugins:
+#   issue_comment.created:
+#     - uses:
+#         - plugin: http://127.0.0.1:9090
+#           name: start-stop
+#           id: start-stop-command
+#           type: github
+#           description: "Allows a user to start/stop a bounty without negative XP impact"
+#           command: "/(start|stop)"
+#           example: "/start | /stop"
+#           with:
+#             disabledCommands: []
+#             timers:
+#               reviewDelayTolerance: 86000
+#               taskStaleTimeoutDuration: 2580000
+#             miscellaneous:
+#               maxConcurrentTasks: 3
+#             labels:
+#               time: []
+#               priority: []
