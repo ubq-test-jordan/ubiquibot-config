@@ -36,7 +36,7 @@ plugins:
       name: start-stop
       id: start-stop-command
       description: "Allows a user to start/stop a task without negative XP impact"
-      command: "\/start|\/stop"
+      command: "/start"
       example: "/start" # or "/stop"
       with:
       isEnabled: true
