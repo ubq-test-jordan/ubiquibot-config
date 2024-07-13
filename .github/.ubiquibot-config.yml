@@ -1,0 +1,66 @@
+keys:
+  evmPrivateKeyEncrypted: xxxxx
+  openAi: xxx
+features: 
+  assistivePricing: false
+  publicAccessControl: 
+    setLabel: true
+    fundExternalClosedIssue: true
+payments: 
+  basePriceMultiplier: 1
+timers: 
+  reviewDelayTolerance: 86400000
+  taskStaleTimeoutDuration: 2419200000
+  taskFollowUpDuration: 302400000
+  taskDisqualifyDuration: 604800000
+disabledCommands: []
+labels: 
+  time: 
+    - "Time: <1 Hour"
+    - "Time: <2 Hours"
+    - "Time: <4 Hours"
+    - "Time: <1 Day"
+    - "Time: <1 Week"
+  priority: 
+    - "Priority: 1 (Normal)"
+    - "Priority: 2 (Medium)"
+    - "Priority: 3 (High)"
+    - "Priority: 4 (Urgent)"
+    - "Priority: 5 (Emergency)"
+  miscellaneous: 
+    maxConcurrentTasks: 3
+
+# plugins:
+#   "issue_comment.created":
+#     - name: "hello-world-plugin name"
+#       description: "hello-world-plugin description"
+#       command: "/hello"
+#       example: "/hello example"
+#       skipBotEvents: true
+#       uses:
+#         # hello-world-plugin
+#         - plugin: http://127.0.0.1:9090
+#           type: github
+#           with:
+#             response: world
+
+plugins:
+  issue_comment.created:
+    - uses:
+        - plugin: http://127.0.0.1:9090
+          name: start-stop
+          id: start-stop-command
+          type: github
+          description: "Allows a user to start/stop a bounty without negative XP impact"
+          command: "/(start|stop)"
+          example: "/start | /stop"
+          with:
+            disabledCommands: []
+            timers:
+              reviewDelayTolerance: 86000
+              taskStaleTimeoutDuration: 2580000
+            miscellaneous:
+              maxConcurrentTasks: 3
+            labels:
+              time: []
+              priority: []
