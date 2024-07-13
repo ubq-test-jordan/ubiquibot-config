@@ -31,18 +31,32 @@ labels:
     maxConcurrentTasks: 3
 
 plugins:
-  "issue_comment.created":
-    - plugin: http://127.0.0.1:4000 # or the URL where the plugin is hosted
-      name: start-stop
-      id: start-stop-command
-      description: "Allows a user to start/stop a task without negative XP impact"
-      command: "/start"
-      example: "/start" # or "/stop"
-      with:
-        isEnabled: true
-        timers:
-          reviewDelayTolerance: 86000
-          taskStaleTimeoutDuration: 2580000
-        miscellaneous:
-          maxConcurrentTasks: 3
-        startRequiresWallet: true # default is true
+  issue_comment.created:
+    - uses:
+        - plugin: http://localhost:4000
+          name: start-stop-command
+          id: start-stop-command
+          type: github
+          description: "ask gpt a question"
+          command: "\/start"
+          example: "/gpt what is pi?"
+          with:
+            isEnabled: true
+            openAi_apiKey: ...
+
+# plugins:
+#   "issue_comment.created":
+#     - plugin: http://127.0.0.1:4000 # or the URL where the plugin is hosted
+#       name: start-stop
+#       id: start-stop-command
+#       description: "Allows a user to start/stop a task without negative XP impact"
+#       command: "/start"
+#       example: "/start" # or "/stop"
+#       with:
+#         isEnabled: true
+#         timers:
+#           reviewDelayTolerance: 86000
+#           taskStaleTimeoutDuration: 2580000
+#         miscellaneous:
+#           maxConcurrentTasks: 3
+#         startRequiresWallet: true # default is true
