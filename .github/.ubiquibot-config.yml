@@ -37,7 +37,7 @@ plugins:
           id: start-stop-command
           type: github
           description: "ask gpt a question"
-          command: "\/start"
+          command: "\/start | \/stop"
           example: "/gpt what is pi?"
           with:
             isEnabled: true
