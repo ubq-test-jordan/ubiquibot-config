@@ -29,8 +29,8 @@ labels:
     - "Priority: 5 (Emergency)"
   miscellaneous: 
     maxConcurrentTasks:
-      - admin: 3
-      - collaborator: 2
+       - admin: 3
+       - collaborator: 2
 plugins:
   issue_comment.created:
     - uses:
