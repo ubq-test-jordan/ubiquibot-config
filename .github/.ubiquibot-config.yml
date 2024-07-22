@@ -1,36 +1,42 @@
 keys:
   evmPrivateKeyEncrypted: xxxxx
   openAi: xxx
-features: 
+features:
   assistivePricing: false
-  publicAccessControl: 
+  publicAccessControl:
     setLabel: true
     fundExternalClosedIssue: true
-payments: 
+payments:
   basePriceMultiplier: 1
-timers: 
+timers:
   reviewDelayTolerance: 86400000
   taskStaleTimeoutDuration: 2419200000
   taskFollowUpDuration: 302400000
   taskDisqualifyDuration: 604800000
 disabledCommands: []
-labels: 
-  time: 
+labels:
+  time:
     - "Time: <1 Hour"
     - "Time: <2 Hours"
     - "Time: <4 Hours"
     - "Time: <1 Day"
     - "Time: <1 Week"
-  priority: 
+  priority:
     - "Priority: 1 (Normal)"
     - "Priority: 2 (Medium)"
     - "Priority: 3 (High)"
     - "Priority: 4 (Urgent)"
     - "Priority: 5 (Emergency)"
-  miscellaneous: 
+  miscellaneous:
     maxConcurrentTasks:
-       - admin: 3
-       - collaborator: 2
+      - role: Admin
+        limit: 100
+      - role: Member
+        limit: 10
+      - role: Collaborator
+        limit: 5
+      - role: Contributor
+        limit: 2
 plugins:
   issue_comment.created:
     - uses:
@@ -44,7 +50,6 @@ plugins:
           with:
             isEnabled: true
             openAi_apiKey: ...
-
 # plugins:
 #   "issue_comment.created":
 #     - plugin: http://127.0.0.1:4000 # or the URL where the plugin is hosted
