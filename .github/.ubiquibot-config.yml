@@ -30,7 +30,7 @@ labels:
   miscellaneous:
     maxConcurrentTasks:
       - role: Admin
-        limit: 10
+        limit: .inf
       - role: Member
         limit: 5
       - role: Collaborator
