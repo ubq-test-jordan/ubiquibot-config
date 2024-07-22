@@ -30,13 +30,11 @@ labels:
   miscellaneous:
     maxConcurrentTasks:
       - role: Admin
-        limit: 100
-      - role: Member
         limit: 10
-      - role: Collaborator
+      - role: Member
         limit: 5
-      - role: Contributor
-        limit: 2
+      - role: Collaborator
+        limit: 3
 plugins:
   issue_comment.created:
     - uses:
