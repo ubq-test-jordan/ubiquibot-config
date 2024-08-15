@@ -29,12 +29,9 @@ labels:
     - "Priority: 5 (Emergency)"
   miscellaneous:
     maxConcurrentTasks:
-      - role: Admin
-        limit: .inf
-      - role: Member
-        limit: 5
-      - role: Collaborator
-        limit: 3
+      Admin: 10
+      Member: 5
+      Collaborator: 2
 plugins:
   issue_comment.created:
     - uses:
