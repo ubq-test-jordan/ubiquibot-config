@@ -1,50 +1,156 @@
-keys:
-  evmPrivateKeyEncrypted: xxxxx
-  openAi: xxx
-features:
-  assistivePricing: false
-  publicAccessControl:
-    setLabel: true
-    fundExternalClosedIssue: true
-payments:
-  basePriceMultiplier: 1
-timers:
-  reviewDelayTolerance: 86400000
-  taskStaleTimeoutDuration: 2419200000
-  taskFollowUpDuration: 302400000
-  taskDisqualifyDuration: 604800000
-disabledCommands: []
-labels:
-  time:
-    - "Time: <1 Hour"
-    - "Time: <2 Hours"
-    - "Time: <4 Hours"
-    - "Time: <1 Day"
-    - "Time: <1 Week"
-  priority:
-    - "Priority: 1 (Normal)"
-    - "Priority: 2 (Medium)"
-    - "Priority: 3 (High)"
-    - "Priority: 4 (Urgent)"
-    - "Priority: 5 (Emergency)"
-  miscellaneous:
-    maxConcurrentTasks:
-      Admin: 10
-      Member: 5
-      Collaborator: 2
-plugins:
-  issue_comment.created:
-    - uses:
-        - plugin: http://localhost:4000
-          name: start-stop-command
-          id: start-stop-command
-          type: github
-          description: "ask gpt a question"
-          command: "\/start | \/stop | \/hello"
-          example: "/gpt what is pi?"
-          with:
-            isEnabled: true
-            openAi_apiKey: ...
+plugin: ubiquibot/conversation-rewards
+with:
+  logLevel: "info"
+  evmNetworkId: 100
+  evmPrivateEncrypted: "encrypted-key"
+  erc20RewardToken: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d"
+  dataCollection:
+    maxAttempts: 10
+    delayMs: 10000
+  incentives:
+    requirePriceLabel: true
+    contentEvaluator:
+      openAi:
+        model: "gpt-4o"
+        endpoint: "https://api.openai.com/v1"
+      multipliers:
+        - role: [ISSUE_SPECIFICATION]
+          relevance: 1
+        - role: [PULL_AUTHOR]
+          relevance: 1
+        - role: [PULL_ASSIGNEE]
+          relevance: 1
+        - role: [PULL_COLLABORATOR]
+          relevance: 1
+        - role: [PULL_CONTRIBUTOR]
+          relevance: 1
+    userExtractor:
+      redeemTask: true
+    dataPurge: {}
+    formattingEvaluator:
+      multipliers:
+          - role: [ ISSUE_SPECIFICATION ]
+            multiplier: 1
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0.1
+              scores: # Scores can be set for each item differently
+                br: 0
+                code: 1
+                p: 1
+                em: 0
+                img: 0
+                strong: 0
+                blockquote: 0
+                h1: 1
+                h2: 1
+                h3: 1
+                h4: 1
+                h5: 1
+                h6: 1
+                a: 1
+                li: 1
+                ul: 1
+                td: 1
+                hr: 0
+          - role: [ISSUE_AUTHOR]
+            multiplier: 1
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0.2
+          - role: [ISSUE_ASSIGNEE]
+            multiplier: 0
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0
+          - role: [ISSUE_COLLABORATOR]
+            multiplier: 1
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0.1
+          - role: [ISSUE_CONTRIBUTOR]
+            multiplier: 0.25
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0.1
+          - role: [PULL_SPECIFICATION]
+            multiplier: 0
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0
+          - role: [PULL_AUTHOR]
+            multiplier: 2
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0.2
+          - role: [PULL_ASSIGNEE]
+            multiplier: 1
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0.1
+          - role: [PULL_COLLABORATOR]
+            multiplier: 1
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0.1
+          - role: [PULL_CONTRIBUTOR]
+            multiplier: 0.25
+            rewards:
+              regex:
+                "\\b\\w+\\b": 0.1
+      permitGeneration: {}
+      githubComment:
+        post: true
+        debug: false
+
+
+# keys:
+#   evmPrivateKeyEncrypted: xxxxx
+#   openAi: xxx
+# features:
+#   assistivePricing: false
+#   publicAccessControl:
+#     setLabel: true
+#     fundExternalClosedIssue: true
+# payments:
+#   basePriceMultiplier: 1
+# timers:
+#   reviewDelayTolerance: 86400000
+#   taskStaleTimeoutDuration: 2419200000
+#   taskFollowUpDuration: 302400000
+#   taskDisqualifyDuration: 604800000
+# disabledCommands: []
+# labels:
+#   time:
+#     - "Time: <1 Hour"
+#     - "Time: <2 Hours"
+#     - "Time: <4 Hours"
+#     - "Time: <1 Day"
+#     - "Time: <1 Week"
+#   priority:
+#     - "Priority: 1 (Normal)"
+#     - "Priority: 2 (Medium)"
+#     - "Priority: 3 (High)"
+#     - "Priority: 4 (Urgent)"
+#     - "Priority: 5 (Emergency)"
+#   miscellaneous:
+#     maxConcurrentTasks:
+#       Admin: 10
+#       Member: 5
+#       Collaborator: 2
+# plugins:
+#   issue_comment.created:
+#     - uses:
+#         - plugin: http://localhost:4000
+#           name: start-stop-command
+#           id: start-stop-command
+#           type: github
+#           description: "ask gpt a question"
+#           command: "\/start | \/stop | \/hello"
+#           example: "/gpt what is pi?"
+#           with:
+#             isEnabled: true
+#             openAi_apiKey: ...
 # plugins:
 #   "issue_comment.created":
 #     - plugin: http://127.0.0.1:4000 # or the URL where the plugin is hosted
