@@ -14,6 +14,6 @@ plugins:
           maxConcurrentTasks: # Default concurrent task limits per role.
             member: 5
             contributor: 3
-          startRequiresWallet: true # default is true
+          startRequiresWallet: false # default is true
           emptyWalletText: "Please set your wallet address with the /wallet command first and try again."
           rolesWithReviewAuthority: ["MEMBER", "OWNER"]
