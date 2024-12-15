@@ -1,7 +1,6 @@
 plugins:
   - skipBotEvents: true
     uses:
-    	# hello-world-plugin
       - plugin: http://localhost:4000 # or the URL where the plugin is hosted
         name: start-stop
         id: start-stop-command
@@ -15,6 +14,7 @@ plugins:
             member: 5
             contributor: 3
           startRequiresWallet: false # default is true
+          assignedIssueScope: "org" # or "org" or "network". Default is org
           emptyWalletText: "Please set your wallet address with the /wallet command first and try again."
           rolesWithReviewAuthority: ["MEMBER", "OWNER"]
           requiredLabelsToStart: ["Priority: 5 (Emergency)"]
